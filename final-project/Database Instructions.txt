@@ -1,0 +1,19 @@
+Database Instructions:
+
+create database notesharedb;
+
+use notesharedb;
+
+create table songs(name varchar(100), url varchar(1000), 
+songid int primary key, tags varchar(1000), artist varchar(100),
+label varchar(100), views bigint, likes int, dislikes int);
+
+create table comments(user int, username varchar(100), songurl varchar(1000), 
+commentid int primary key, comment varchar(1000), likes int, dislikes int);
+
+create table users(name varchar(100), userid int primary key, picture longblob, 
+friends longtext, settings longtext);
+
+
+
+
