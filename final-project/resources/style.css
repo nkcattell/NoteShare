@@ -1,0 +1,9 @@
+.jumbotron {
+	background-color: PaleGreen;
+	color: black;
+	text-align: center;
+}
+
+#logo {
+	font-size: 200%
+}
