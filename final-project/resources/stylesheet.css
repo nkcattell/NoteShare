@@ -1,0 +1,15 @@
+.form-group {
+    display: block;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 8px;
+    width: 100%;
+}
+
+.form-horizontal {
+    padding: 70px;
+}
+
+#button {
+    width: 100%;
+}
