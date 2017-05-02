@@ -1,6 +1,9 @@
 <?php
 	
-	$url = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/285701757&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true";
+	$url = "https://www.youtube.com/embed/HdzI-191xhU";
+	// Change this
+	$username = "Username";
+
 	/* Connecting to the database */		
 	$db_connection = new mysqli('localhost', 'root', '', 'notesharedb');
 	if ($db_connection->connect_error) {
@@ -8,7 +11,7 @@
 	}
 
 	/* Get likes/dislikes */
-	$query = "select likes, dislikes, name, views from songs where songid=1";
+	$query = "select likes, dislikes, name, views, artist from songs where url='{$url}'";
 			
 	/* Executing query */
 	$result = $db_connection->query($query);
@@ -27,12 +30,15 @@
 				$dislikes = $row['dislikes'];
 				$song_name = $row['name'];
 				$views = $row['views'];
+				$artist = $row['artist'];
 			}
 		}
 	}
 
 	$views += 1;
-	$update_views = "update songs set views={$views} where songid=1";
+	$comment_id = $views;
+
+	$update_views = "update songs set views={$views} where url='{$url}'";
 	$result = $db_connection->query($update_views);
 
 	if (isset($_POST["submit"])) {
@@ -43,7 +49,7 @@
 			$user_comment .= $_POST['comment'];
 			$user_comment .= "</p>";
 			/* Get comments */
-			$query = "insert into comments values (1, 'test_user', 'https://www.youtube.com/embed/pzAo3Hj15R4', 1, 13, '{$user_comment}', 12, 4)";
+			$query = "insert into comments values (1, 'test_user', '{$url}', 1, '{$comment_id}', '{$user_comment}', 12, 4)";
 					
 			/* Executing query */
 			$result = $db_connection->query($query);
@@ -54,7 +60,7 @@
 	}
 
 	/* Get comments */
-	$query = "select comment from comments where songid=1";
+	$query = "select comment from comments where songurl='{$url}'";
 	$comment = "";
 	/* Executing query */
 	$result = $db_connection->query($query);
@@ -77,7 +83,7 @@
 	/* Closing connection */
 	$db_connection->close();
 
-	function generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $title="Song") {
+	function generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $username, $artist, $title="Song") {
 		    $page = <<<EOPAGE
 			<!doctype html>
 			<html>
@@ -115,9 +121,10 @@
 							<!-- Soundcloud Link -->
 							<iframe id="videoPlayer" width="100%" height="400" scrolling="no" frameborder="no" src="{$url}"></iframe>
 							<h4 class="inline">Uploaded By: </h4>
-							<h4 class="inline">Username</h4>
+							<h4 class="inline">{$username}</h4>
 
 							<div class="pull-right">
+								<h4 class="inline">Artist: {$artist} </h4>&nbsp;&nbsp;
 								<a href="#" id="thumbsUp" onclick="return false;"><i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i></a>
 								<p class="inline" id="numLike">{$likes}</p>
 								<a href="#" id="thumbsDown" onclick="return false;"><i class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i></a>
@@ -133,7 +140,7 @@
 							    </div>
 								
 								<div class="pull-right">
-										<input class="btn btn-default" type="reset" value="Cancel" id="cancelButton"></button>
+										<input class="btn btn-default" type="reset" value="Cancel" id="cancelButton">
 										<input type="submit" name="submit" class="btn btn-primary" value="Comment" id="commentButton"/>
 								</div>
 							</form>
@@ -151,5 +158,5 @@ EOPAGE;
 	    	return $page;
 		}
 
-	echo generatePage($likes, $dislikes, $comment, $url, $song_name, $views);
+	echo generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $username, $artist);
 ?>
