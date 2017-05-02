@@ -22,7 +22,14 @@
 		/* Number of rows found */
 		$num_rows = $result->num_rows;
 		if ($num_rows === 0) {
-			$insert = "insert into users (name, userid, password) values ('$username','$password')";
+			$query2 = "select max(userid) as max from users";
+			$result2 = $db_connection->query($query2);
+			if (!$result2) {
+				die("Retrieval failed: ". $db_connection->error);
+			}
+			$assoc = $result2->fetch_assoc();
+			$increment = $assoc['max'] + 1;
+			$insert = "insert into users (name, userid, password) values ('$username', $increment, '$password')";
 			$insertion = $db_connection->query($insert);
 			if (!$insertion) {
 				die("Insertion failed: ". $db_connection->error);
@@ -53,7 +60,7 @@
 		
 		<h4>Login if you're already a member, or click Create Account<h4>
 		
-		<form class="form-horizontal" method=post action="affirmLogin.php">
+		<form class="form-horizontal" method=post action="affirmCreateUser.php">
 			<fieldset>
 				<div class="form-group">
 					<label class="col-md-4 control-label">Username:</label>
