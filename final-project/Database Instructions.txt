@@ -6,7 +6,7 @@ use notesharedb;
 
 create table songs(name varchar(100), url varchar(1000), 
 songid int primary key, tags varchar(1000), artist varchar(100),
-label varchar(100), views bigint, likes int, dislikes int);
+label varchar(100), views bigint, likes int, dislikes int, uploadTime DATE);
 
 create table comments(user int, username varchar(100), songurl varchar(1000), 
 songid int, commentid int primary key, comment varchar(1000), likes int,
