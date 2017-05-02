@@ -13,7 +13,7 @@ songid int, commentid int primary key, comment varchar(1000), likes int,
 dislikes int);
 
 create table users(name varchar(100), userid int primary key, picture longblob, 
-friends longtext, settings longtext);
+friends longtext, settings longtext, password varchar(16));
 
 
 
