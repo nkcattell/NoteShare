@@ -1,0 +1,13 @@
+button {
+	margin-left: 0.8em;
+}
+
+.inline {
+	display: inline;
+}
+
+.inactiveLink {
+   pointer-events: none;
+   cursor: default;
+   opacity: 0.7;
+}
