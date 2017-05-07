@@ -87,7 +87,7 @@
 	/* Closing connection */
 	$db_connection->close();
 
-	function generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $username, $artist, $title="Song") {
+	function generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $artist, $title="Song") {
 		    $page = <<<EOPAGE
 			<!doctype html>
 			<html>
@@ -124,11 +124,9 @@
 							<h2>{$song_name}</h2>
 							<!-- Soundcloud Link -->
 							<iframe id="videoPlayer" width="100%" height="400" scrolling="no" frameborder="no" src="{$url}"></iframe>
-							<h4 class="inline">Uploaded By: UserID</h4>
-							<h4 class="inline">{$username}</h4>
+							<h4 class="inline">{$artist}</h4>
 
 							<div class="pull-right">
-								<h4 class="inline">Artist: {$artist} </h4>&nbsp;&nbsp;
 								<a href="#" id="thumbsUp" onclick="return false;"><i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i></a>
 								<p class="inline" id="numLike">{$likes}</p>
 								<a href="#" id="thumbsDown" onclick="return false;"><i class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i></a>
@@ -162,5 +160,5 @@ EOPAGE;
 	    	return $page;
 		}
 
-	echo generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $username, $artist);
+	echo generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $artist);
 ?>
