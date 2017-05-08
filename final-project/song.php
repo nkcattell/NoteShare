@@ -8,8 +8,10 @@
 	
 	if (isset($_POST['url'])) {
 		$url = $_POST['url'];
-		$song_name = $_POST['title'];
-		$artist = $_POST['artist'];
+		if (isset($_POST['title'])) {
+			$song_name = $_POST['title'];
+			$artist = $_POST['artist'];
+		}
 	} elseif (isset($_POST['songid'])) {
 		$query = "select url from songs where songid = {$_POST['songId']}";
 		$result = $db_connection->query($query);
@@ -23,7 +25,23 @@
 				$url = $row['url'];
 			}
 		}
+	} elseif (isset($_SESSION['url'])) {
+		$session_url = $_SESSION['url'];
+		$query = "select url from songs where url = '{$session_url}'";
+		$result = $db_connection->query($query);
+		if (!$result) {
+			die("Retrieval failed: ". $db_connection->error);
+		} else {
+			$num_rows = $result->num_rows;
+			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
+				$result->data_seek($row_index);
+				$row = $result->fetch_array(MYSQLI_ASSOC);
+				$url = $row['url'];
+			}
+		}
 	}
+	$_SESSION['url'] = $url;
+
 	
 	$query = "select * from users where name='{$_SESSION['user']}'";
 	$result = $db_connection->query($query);
@@ -94,7 +112,6 @@
 	}
 	
 	$views += 1;
-	$comment_id = $views;
 	$update_views = "update songs set views={$views} where url='{$url}'";
 	$result = $db_connection->query($update_views);
 	if (isset($_POST["submit"])) {
@@ -104,12 +121,20 @@
 			$user_comment .= $_POST['comment'];
 			$user_comment .= "</p>";
 			/* Get comments */
-			$query = "insert into comments values ('{$userid}', '{$username}', '{$url}', {$songID}, '{$comment_id}', '{$user_comment}', 0, 0)";
-					
-			/* Executing query */
-			$result = $db_connection->query($query);
-			if (!$result) {
-				die("Insertion failed: " . $db_connection->error);
+
+			$query_max_comment = "select max(commentid) as max from comments";
+			$result2 = $db_connection->query($query_max_comment);
+			if (!$result2) {
+				die("Retrieval failed: ". $db_connection->error);
+			}
+			$assoc = $result2->fetch_assoc();
+			$comment_id = $assoc['max'] + 1;
+			
+			$insert = "insert into comments values ('{$userid}', '{$username}', '{$url}', {$songID}, '{$comment_id}', '{$user_comment}', 0, 0)";
+
+			$insertion = $db_connection->query($insert);
+			if (!$insertion) {
+				die("Insertion failed: ". $db_connection->error);
 			}
 		}
 	}
