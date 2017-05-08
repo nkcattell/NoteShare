@@ -6,7 +6,8 @@
 	session_start();
 
     if(!isset($_SESSION['user'])) {
-        echo "alert("Please log in first")";
+        
+        echo 'alert("Please log in first")';
         header("Location: login.php"); /* Redirect browser */
         exit();
     }
