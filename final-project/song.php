@@ -1,5 +1,6 @@
 <?php
 	require_once "userAuth.php";
+	session_start();
 
 
 	$db_connection = new mysqli($host, $user, $password, $database);
@@ -7,13 +8,15 @@
 		die($db_connection->connect_error);
 	}
 	
-	if (isset($_GET['url'])) {
-		$url = $_GET['url'];
+	if (isset($_POST['url'])) {
+		$url = $_POST['url'];
 	} elseif (isset($_POST['songid'])) {
-		$query = "select url from songs where songid = {$_GET['songId']}";
+		$query = "select url from songs where songid = {$_POST['songId']}";
+		$result = $db_connection->query($query);
 		if (!$result) {
 			die("Retrieval failed: ". $db_connection->error);
 		} else {
+			$num_rows = $result->num_rows;
 			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 				$result->data_seek($row_index);
 				$row = $result->fetch_array(MYSQLI_ASSOC);
@@ -27,6 +30,7 @@
 	if (!$result) {
 		die("Retrieval failed: ". $db_connection->error);
 	} else {
+		$num_rows = $result->num_rows;
 		for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 				$result->data_seek($row_index);
 				$row = $result->fetch_array(MYSQLI_ASSOC);
@@ -34,8 +38,6 @@
 				$userid = $row['userid'];
 			}
 	}
-	
-	echo "<script>alert($username, $userid)</script>";
 
 	/* Connecting to the database */		
 
@@ -74,6 +76,7 @@
 	if (!$result) {
 		die("Retrieval failed: ". $db_connection->error);
 	} else {
+		$num_rows = $result->num_rows;
 		for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 				$result->data_seek($row_index);
 				$row = $result->fetch_array(MYSQLI_ASSOC);
@@ -86,11 +89,11 @@
 	$comment_id = $views;
 	$update_views = "update songs set views={$views} where url='{$url}'";
 	$result = $db_connection->query($update_views);
-	if (isset($_GET["submit"])) {
-		if (isset($_GET["comment"])) {
+	if (isset($_POST["submit"])) {
+		if (isset($_POST["comment"])) {
 			$user_comment = "<hr>
-								<h5>Username</h5><p>";
-			$user_comment .= $_GET['comment'];
+								<h5>{$_SESSION['user']}</h5><p>";
+			$user_comment .= $_POST['comment'];
 			$user_comment .= "</p>";
 			/* Get comments */
 			$query = "insert into comments values ('{$userid}', '{$username}', '{$url}', {$songID}, '{$comment_id}', '{$user_comment}', 0, 0)";

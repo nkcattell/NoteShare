@@ -1,6 +1,11 @@
 
 <html>
 
+
+<?php
+	session_start();
+?>
+
 <head>
 
     </style>
@@ -9,7 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="resources/style.css" />
+
 </head>
 
 
@@ -23,9 +28,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="profile.php">Profile</a></li>
-	            <li><a href="upload.php">Upload</a></li>
-		    <li><a href="login.php">Login</a></li>
-		    <li><a href="createUser.php">Register</a></li>
+                    <li><a href="upload.php">Songs</a></li>
+                    <li><a href="createUser.php">Register</a></li>
                 </ul>
             </div>
         </div>
@@ -33,7 +37,7 @@
 
 
 
-    <form class="form-horizontal" method=GET action="song.php">
+    <form class="form-horizontal" method=post action="song.php">
         <fieldset>
             <div class="form-group">
                 <label class="col-md-4 control-label">Song Title</label>
