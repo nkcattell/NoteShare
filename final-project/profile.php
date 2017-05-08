@@ -67,6 +67,7 @@
 					<button type="submit" name="update" class="btn btn-primary center-block">Update Profile</button>
 				</div>
 			</div>
+			</form>
 			<form class="form-horizontal" method=post action="upload.php">
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="button"></label>
