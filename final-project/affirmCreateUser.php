@@ -55,7 +55,23 @@
 	</head>
 	
 	<body>
-		
+		    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand"><strong><i id="logo">NoteShare</i></strong></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="main.html">Home</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="upload.php">Songs</a></li>
+                    <li><a href="createUser.php">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+	
 		<h1>Welcome to Noteshare!</h1>
 		
 		<h4>Login if you're already a member, or click Create Account<h4>
