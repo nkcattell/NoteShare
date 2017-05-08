@@ -64,15 +64,14 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="button"></label>
 				<div class="col-md-4 center-block">
-					<button type="submit" name="update" class="btn btn-primary center-block">Update Profile</button>
+					<a href="userSettings.php" name="update" class="btn btn-primary center-block">Update Profile</a>
 				</div>
 			</div>
-			</form>
 			<form class="form-horizontal" method=post action="upload.php">
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="button"></label>
 				<div class="col-md-4 center-block">
-					<button type="submit" name="upload" class="btn btn-primary center-block">Upload Song</button>
+					<a href="upload.php" name="upload" class="btn btn-primary center-block">Upload Song</a>
 				</div>
 			</div>
 			</form>
