@@ -55,7 +55,7 @@
 				
 				<?php 
 					while($song = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)) {
-						echo '<input type="hidden" method="POST" name="songId" value="$song[\'songid\']">';
+						$_SESSION['url'] = $song['url'];
 						echo '<tr onclick="window.document.location=\'song.php\';"><td>';
 						echo $song['name'];
 						echo "</td><td>";
