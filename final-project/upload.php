@@ -4,6 +4,12 @@
 
 <?php
 	session_start();
+
+    if(!isset($_SESSION['user'])) {
+        alert("Please log in first");
+        header("Location: login.php"); /* Redirect browser */
+        exit();
+    }
 ?>
 
 <head>
