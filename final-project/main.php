@@ -14,59 +14,64 @@
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand"><strong><i id="logo">NoteShare</i></strong></a>
+                <a class="navbar-brand" href="main.php"><strong><i id="logo">NoteShare</i></strong></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="main.html">Home</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li><a href="#">Songs</a></li>
+                    <li><a href="upload.php">Upload</a></li>
+					<li><a href="login.php">Login</a></li>
                     <li><a href="createUser.php">Register</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="jumbotron">
+    <div class="jumbotron table-responsive">
         <div class="container">
             <h1>Songs</h1>
+				
 			<?php
 				/* Connecting to the database */
-				mysql_connect('localhost', 'root', '');
+				$con = new mysqli('localhost', 'root', '', 'notesharedb');
+				if ($con->connect_error) {
+					die($con->connect_error);
+				}
 				
-				mysql_select_db('notesharedb');
+				$sqlget = "select * from songs";
+				$sqldata = mysqli_query($con, $sqlget);
 				
-				$sql="select * from songs"
-				
-				$songTable = mysql_query($sql);
 			?>
 			
-			<table border="1" cellpadding="1" cellspacing="1">
+			<table class="table table-bordered table-responsive table-hover">
 				<tr>
 					<th>Name</th>
-					<th>URL</th>
 					<th>Artist</th>
 					<th>Label</th>
+					<th>Tags</th>
 					<th>Likes</th>
 				</tr>
 				
-				<?php
-					while($song = mysql_fetch_assoc($songTable)) {
-						echo "<tr>";
-						
-						echo "<td>".song['name']."</td>";
-						echo "<td>".song['url']."</td>";
-						echo "<td>".song['artist']."</td>";
-						echo "<td>".song['label']."</td>";
-						echo "<td>".song['likes']."</td>";
-						
-						echo "</tr>";
+				<?php 
+					while($song = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)) {
+						echo '<input type="hidden" method="POST" name="songId" value="$song[\'songid\']">';
+						echo '<tr onclick="window.document.location=\'song.php\';"><td>';
+						echo $song['name'];
+						echo "</td><td>";
+						echo $song['artist'];
+						echo "</td><td>";
+						echo $song['label'];
+						echo "</td><td>";
+						echo $song['tags'];
+						echo "</td><td>";
+						echo $song['likes'];
+						echo "</td></tr>";
 					}
 				?>
 			</table>
         </div>
     </div>
-
+	
     <script src="js/bootstrap.min.js"></script>
 </body>
 
