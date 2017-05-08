@@ -3,6 +3,7 @@
 
 <?php 
 	require_once "userAuth.php";
+	session_start();
 	
 	$db_connection = new mysqli($host, $user, $password, $database);
 	if ($db_connection->connect_error) {
@@ -34,10 +35,8 @@
 			if (!$insertion) {
 				die("Insertion failed: ". $db_connection->error);
 			}
-			
-			session_start();
 			$_SESSION['user'] = $username;
-			header("Location: main.php");
+			header("Location: profile.php");
 		} else {
 			echo "<script>alert('Username already exists.  Please enter a different username.')</script>";
 			
@@ -58,12 +57,12 @@
 		    <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="main.html"><strong><i id="logo">NoteShare</i></strong></a>
+                <a class="navbar-brand" href="main.php"><strong><i id="logo">NoteShare</i></strong></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="profile.php">Profile</a></li>
-                    <li><a href="upload.php">Songs</a></li>
+                    <li><a href="upload.php">Upload</a></li>
                     <li><a href="createUser.php">Register</a></li>
                 </ul>
             </div>
