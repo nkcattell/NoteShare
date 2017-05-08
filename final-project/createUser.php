@@ -56,18 +56,17 @@
 						</div>
 					</fieldset>
 				</form>
+			
+				<form class="form-horizontal" method=post action="login.php">
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="button"></label>
+						<div class="col-md-4 center-block">
+							<button type="submit" id="login" name="login" class="btn btn-primary center-block">Login</button>
+						</div>
+					</div>
+				</form>
 			</div>
-		</div>
-		
-		<form class="form-horizontal" method=post action="login.php">
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="button"></label>
-				<div class="col-md-4 center-block">
-					<button type="submit" id="login" name="login" class="btn btn-primary center-block">Login</button>
-				</div>
-			</div>
-		</form>
-		
+		</div>		
 	</body>
 </html>
 			
