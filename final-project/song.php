@@ -80,15 +80,12 @@
 			if (!$insertion) {
 				die("Insertion failed: ". $db_connection->error);
 			}
-			 $likes = 0;
-			 $dislikes = 0;
 			 $views = 0;
 
 		} else {
 			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 				$result->data_seek($row_index);
 				$row = $result->fetch_array(MYSQLI_ASSOC);
-				$likes = $row['likes'];
 				$dislikes = $row['dislikes'];
 				$song_name = $row['name'];
 				$songID = $row['songid'];
@@ -160,7 +157,7 @@
 	}
 	/* Closing connection */
 	$db_connection->close();
-	function generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $artist, $title="Song") {
+	function generatePage($comment, $url, $song_name, $views, $artist, $title="Song") {
 		    $page = <<<EOPAGE
 			<!doctype html>
 			<html>
@@ -182,9 +179,8 @@
 							</div>
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 								<ul class="nav navbar-nav navbar-right">
-									<li><a href="#">Profile</a></li>
-									<li><a href="#">Songs</a></li>
-									<li><a href="#">Register</a></li>
+									<li><a href="profile.php">Profile</a></li>
+				                    <li><a href="upload.php">Upload</a></li>
 								</ul>
 							</div>
 						</div>
@@ -197,12 +193,7 @@
 							<!-- Soundcloud Link -->
 							<iframe id="videoPlayer" width="100%" height="400" scrolling="no" frameborder="no" src="{$url}"></iframe>
 							<h3 class="inline">{$artist}</h3>
-							<div class="pull-right">
-								<a href="#" id="thumbsUp" onclick="return false;"><i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i></a>
-								<p class="inline" id="numLike">{$likes}</p>
-								<a href="#" id="thumbsDown" onclick="return false;"><i class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i></a>
-								<p class="inline" id="numDislike">{$dislikes}</p>
-							</div>
+							
 							<h4>$views Views</h4>
 							<br>
 							<br>
@@ -230,5 +221,5 @@
 EOPAGE;
 	    	return $page;
 		}
-	echo generatePage($likes, $dislikes, $comment, $url, $song_name, $views, $artist);
+	echo generatePage($comment, $url, $song_name, $views, $artist);
 ?>
