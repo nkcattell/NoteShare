@@ -81,29 +81,41 @@
 	    <div class="jumbotron table-responsive">
         <div class="container">
             <h4><?php echo $name;?>'s Uploaded Songs</h4>
-			<br>
+				
+			<?php
+				
+				/* Connecting to the database */
+				$con = new mysqli('localhost', 'root', '', 'notesharedb');
+				if ($con->connect_error) {
+					die($con->connect_error);
+				}
+				
+				$sqlget = "select * from songs";
+				$sqldata = mysqli_query($con, $sqlget);
+			?>
+			
 			<table class="table table-bordered table-responsive table-hover">
 				<tr>
 					<th>Name</th>
 					<th>Artist</th>
 					<th>Label</th>
-					<th>Tags</th>
-					<th>Likes</th>
+					<th>View</th>
 				</tr>
 				
 				<?php 
-					while($song = mysqli_fetch_array($songs, MYSQLI_ASSOC)) {
-						echo '<input type="hidden" method="POST" name="songId" value="$song[\'songid\']">';
-						echo '<tr onclick="window.document.location=\'song.php\';"><td>';
+					while($song = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)) {
+						$url = $song['url'];
+						echo '<tr><td>';
 						echo $song['name'];
 						echo "</td><td>";
 						echo $song['artist'];
 						echo "</td><td>";
-						echo $song['label'];
+						echo $song['label'];						
 						echo "</td><td>";
-						echo $song['tags'];
-						echo "</td><td>";
-						echo $song['likes'];
+						echo '<form action="song.php" method=post>
+								<input type="hidden" name="url" value='.$url.'>
+								<input type="submit" value="View">
+							  </form>';
 						echo "</td></tr>";
 					}
 				?>
