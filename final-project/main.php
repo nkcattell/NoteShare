@@ -33,6 +33,7 @@
 				
 			<?php
 				/* Connecting to the database */
+				session_start();
 				$con = new mysqli('localhost', 'root', '', 'notesharedb');
 				if ($con->connect_error) {
 					die($con->connect_error);
