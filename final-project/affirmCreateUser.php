@@ -37,7 +37,7 @@
 			
 			session_start();
 			$_SESSION['user'] = $username;
-			header("Location: main.html");
+			header("Location: main.php");
 		} else {
 			echo "<script>alert('Username already exists.  Please enter a different username.')</script>";
 			
