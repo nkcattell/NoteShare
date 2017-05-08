@@ -27,48 +27,44 @@
 		</nav>
 		
 		<div class="jumbotron">
+			<h1>Welcome to Noteshare!</h1>
 
-		<h1>Welcome to Noteshare!</h1>
-		
-		<h4>Login if you're already a member, or click Create Account</h4>
-		
-		<form class="form-horizontal" method=post action="affirmLogin.php">
-			<fieldset>
-				<div class="form-group">
-					<label class="col-md-4 control-label">Username:</label>
-					<div class="col-md-4">
-						<input id="username" name="Username" type="text" class="form-control input-md" required="">
+			<h4>Login if you're already a member, or click Create Account</h4>
+
+			<form class="form-horizontal" method=post action="affirmLogin.php">
+				<fieldset>
+					<div class="form-group">
+						<label class="col-md-4 control-label">Username:</label>
+						<div class="col-md-4">
+							<input id="username" name="Username" type="text" class="form-control input-md" required="">
+						</div>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="col-md-4 control-label">Password:</label>
-					<div class="col-md-4">
-						<input id="password" name="Password" type="password" class="form-control input-md" required=""> </br>
+
+					<div class="form-group">
+						<label class="col-md-4 control-label">Password:</label>
+						<div class="col-md-4">
+							<input id="password" name="Password" type="password" class="form-control input-md" required=""> </br>
+						</div>
 					</div>
-				</div>
-				
+
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="button"></label>
+						<div class="col-md-4 center-block">
+							<button type="submit" id="login" name="login" class="btn btn-primary center-block">Login</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+
+			<form class="form-horizontal" method=post action="createUser.php">
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="button"></label>
 					<div class="col-md-4 center-block">
-						<button type="submit" id="login" name="login" class="btn btn-primary center-block">Login</button>
+						<button type="submit" id="create" name="create" class="btn btn-primary center-block">Create Account</button>
 					</div>
 				</div>
-			</fieldset>
-		</form>
-		
-
+			</form>
 		</div>
-		
-		<form class="form-horizontal" method=post action="createUser.php">
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="button"></label>
-				<div class="col-md-4 center-block">
-					<button type="submit" id="create" name="create" class="btn btn-primary center-block">Create Account</button>
-				</div>
-			</div>
-		</form>
-		
 	</body>
 </html
 			
