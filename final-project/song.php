@@ -1,8 +1,6 @@
 <?php
 	require_once "userAuth.php";
 	session_start();
-
-
 	$db_connection = new mysqli($host, $user, $password, $database);
 	if ($db_connection->connect_error) {
 		die($db_connection->connect_error);
@@ -10,6 +8,8 @@
 	
 	if (isset($_POST['url'])) {
 		$url = $_POST['url'];
+		$song_name = $_POST['title'];
+		$artist = $_POST['artist'];
 	} elseif (isset($_POST['songid'])) {
 		$query = "select url from songs where songid = {$_POST['songId']}";
 		$result = $db_connection->query($query);
@@ -38,9 +38,7 @@
 				$userid = $row['userid'];
 			}
 	}
-
 	/* Connecting to the database */		
-
 	/* Get likes/dislikes */
 	$query = "select likes, dislikes, name, views, artist, userid, songid from songs where url='{$url}'";
 			
@@ -52,12 +50,22 @@
 		/* Number of rows found */
 		$num_rows = $result->num_rows;
 		if ($num_rows === 0) {
-			$sql = "INSERT INTO songs (artist, url, tags, userid)
-			VALUES ('$url', '$url', '$url', '$userid')";
- 			$db_connection->query($sql);
- 			$likes = 0;
- 			$dislikes = 0;
- 			$views = 0;
+			$query_max = "select max(songid) as max from songs";
+			$result2 = $db_connection->query($query_max);
+			if (!$result2) {
+				die("Retrieval failed: ". $db_connection->error);
+			}
+			$assoc = $result2->fetch_assoc();
+			$increment = $assoc['max'] + 1;
+			$insert = "insert into songs (name, url, songid, artist, views, likes, dislikes) values ('$song_name', '$url', '$increment', '$artist', 0, 0, 0)";
+			$insertion = $db_connection->query($insert);
+			if (!$insertion) {
+				die("Insertion failed: ". $db_connection->error);
+			}
+			 $likes = 0;
+			 $dislikes = 0;
+			 $views = 0;
+
 		} else {
 			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 				$result->data_seek($row_index);
@@ -149,10 +157,9 @@
 							</div>
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 								<ul class="nav navbar-nav navbar-right">
-									<li><a href="profile.php">Profile</a></li>
-                   							<li><a href="upload.php">Upload</a></li>
-									<li><a href="login.php">Login</a></li>
-                    							<li><a href="createUser.php">Register</a></li>
+									<li><a href="#">Profile</a></li>
+									<li><a href="#">Songs</a></li>
+									<li><a href="#">Register</a></li>
 								</ul>
 							</div>
 						</div>
@@ -175,7 +182,7 @@
 							<br>
 							<br>
 							<h4>Comments</h4>
-							<form action="song.php" method=get>
+							<form action="song.php" method=post>
 								<div class="form-group">
 								    <input type="text" class="form-control input-lg" name="comment" id="input-lg" placeholder="Add a comment.."/>
 							    </div>
