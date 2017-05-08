@@ -14,11 +14,10 @@
 		<nav class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand"><strong><i id="logo">NoteShare</i></strong></a>
+					<a class="navbar-brand" href="main.html"><strong><i id="logo">NoteShare</i></strong></a>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="main.html">Home</a></li>
 						<li><a href="#">Profile</a></li>
 						<li><a href="#">Songs</a></li>
                     	<li><a href="createUser.php">Register</a></li>
@@ -27,9 +26,11 @@
 			</div>
 		</nav>
 		
+		<div class="jumbotron">
+		
 		<h1>Welcome to Noteshare!</h1>
 		
-		<h4>Create a new profile, or click Login if you already have an account.<h4>
+		<h4>Create a new profile, or click Login if you already have an account.</h4>
 		
 		<form class="form-horizontal" method=post action="affirmCreateUser.php">
 			<fieldset>
@@ -55,6 +56,9 @@
 				</div>
 			</fieldset>
 		</form>
+		
+
+		</div>
 		
 		<form class="form-horizontal" method=post action="login.php">
 			<div class="form-group">

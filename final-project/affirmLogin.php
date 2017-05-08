@@ -37,7 +37,7 @@
 				$_SESSION['user'] = $username;
 				header("Location: main.html");
 			} else {
-				echo "<h1>Username/password not recognized.  Please try again.</h1>";
+				echo "<script>alert('Username/password not recognized.  Please try again.');</script>";
 			}
 		}
 	}
@@ -49,7 +49,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Noteshare Login Page</title>
 		<link href="resources/css/bootstrap.min.css" rel="stylesheet">
-		<! <link rel="stylesheet" type="text/css" href="resources/style.css"/ > 
+		<link rel="stylesheet" type="text/css" href="resources/style.css"/ > 
 	</head>
 	
 	<body>
@@ -57,11 +57,10 @@
 	<nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand"><strong><i id="logo">NoteShare</i></strong></a>
+                <a class="navbar-brand" href="main.html"><strong><i id="logo">NoteShare</i></strong></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="main.html">Home</a></li>
                     <li><a href="profile.php">Profile</a></li>
                     <li><a href="upload.php">Songs</a></li>
                     <li><a href="createUser.php">Register</a></li>
@@ -70,9 +69,11 @@
         </div>
     </nav>
 		
+		<div class="jumbotron">
+		
 		<h1>Welcome to Noteshare!</h1>
 		
-		<h4>Login if you're already a member, or click Create Account<h4>
+		<h4>Login if you're already a member, or click Create Account</h4>
 		
 		<form class="form-horizontal" method=post action="affirmLogin.php">
 			<fieldset>
@@ -98,6 +99,8 @@
 				</div>
 			</fieldset>
 		</form>
+		
+		</div>
 		
 		<form class="form-horizontal" method=post action="createUser.php">
 			<div class="form-group">

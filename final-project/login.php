@@ -11,14 +11,13 @@
 	</head>
 	
 	<body>
-			<nav class="navbar navbar-inverse navbar-static-top">
+		<nav class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand"><strong><i id="logo">NoteShare</i></strong></a>
+					<a class="navbar-brand" href="main.html"><strong><i id="logo">NoteShare</i></strong></a>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="main.html">Home</a></li>
 						<li><a href="#">Profile</a></li>
 						<li><a href="#">Songs</a></li>
                     	<li><a href="createUser.php">Register</a></li>
@@ -31,7 +30,7 @@
 
 		<h1>Welcome to Noteshare!</h1>
 		
-		<h4>Login if you're already a member, or click Create Account<h4>
+		<h4>Login if you're already a member, or click Create Account</h4>
 		
 		<form class="form-horizontal" method=post action="affirmLogin.php">
 			<fieldset>
@@ -58,6 +57,9 @@
 			</fieldset>
 		</form>
 		
+
+		</div>
+		
 		<form class="form-horizontal" method=post action="createUser.php">
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="button"></label>
@@ -66,7 +68,6 @@
 				</div>
 			</div>
 		</form>
-		</div>
 		
 	</body>
 </html
