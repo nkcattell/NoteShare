@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
@@ -20,7 +19,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="profile.php">Profile</a></li>
                     <li><a href="upload.php">Upload</a></li>
-		    <li><a href="login.php">Login</a></li>
+					<li><a href="login.php">Login</a></li>
                     <li><a href="createUser.php">Register</a></li>
                 </ul>
             </div>
@@ -32,8 +31,8 @@
             <h1>Songs</h1>
 				
 			<?php
+				
 				/* Connecting to the database */
-				session_start();
 				$con = new mysqli('localhost', 'root', '', 'notesharedb');
 				if ($con->connect_error) {
 					die($con->connect_error);
@@ -41,7 +40,6 @@
 				
 				$sqlget = "select * from songs";
 				$sqldata = mysqli_query($con, $sqlget);
-				
 			?>
 			
 			<table class="table table-bordered table-responsive table-hover">
@@ -49,23 +47,23 @@
 					<th>Name</th>
 					<th>Artist</th>
 					<th>Label</th>
-					<th>Tags</th>
-					<th>Likes</th>
+					<th>View</th>
 				</tr>
 				
 				<?php 
 					while($song = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)) {
-						$_SESSION['url'] = $song['url'];
-						echo '<tr onclick="window.document.location=\'song.php\';"><td>';
+						$url = $song['url'];
+						echo '<tr><td>';
 						echo $song['name'];
 						echo "</td><td>";
 						echo $song['artist'];
 						echo "</td><td>";
-						echo $song['label'];
+						echo $song['label'];						
 						echo "</td><td>";
-						echo $song['tags'];
-						echo "</td><td>";
-						echo $song['likes'];
+						echo '<form action="song.php" method=post>
+								<input type="hidden" name="url" value='.$url.'>
+								<input type="submit" value="View">
+							  </form>';
 						echo "</td></tr>";
 					}
 				?>
